@@ -45,7 +45,7 @@ module.exports = {
       'warn',
       {
         newlinesBetween: 'always',
-        groups: [['module'], ['/^~//'], ['parent', 'sibling', 'index']],
+        groups: [['module'], ['parent', 'sibling', 'index']],
         alphabetize: {
           order: 'asc',
           ignoreCase: true,

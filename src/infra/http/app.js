@@ -1,7 +1,10 @@
 import express from 'express';
 import ms from 'ms';
 
+import 'express-async-errors';
+
 import { AppError } from '../../utils/AppError.js';
+import { apiRouter } from './routes/api.routes.js';
 
 export const app = express();
 
@@ -14,6 +17,8 @@ app.get('/', (req, res) => {
     uptime: ms(new Date().getTime() - startDate.getTime()),
   });
 });
+
+app.use('/api', apiRouter);
 
 app.use((err, request, response, _) => {
   if (err instanceof AppError) {

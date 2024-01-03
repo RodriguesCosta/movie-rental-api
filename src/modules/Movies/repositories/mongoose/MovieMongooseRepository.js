@@ -19,12 +19,6 @@ export class MovieMongooseRepository {
     return newMovie;
   }
 
-  async find() {
-    const result = await this.MovieModel.find();
-
-    return result;
-  }
-
   async findAvailable() {
     const result = await this.MovieModel.find({
       isAvailable: true,
@@ -39,5 +33,22 @@ export class MovieMongooseRepository {
     });
 
     return movie;
+  }
+
+  async update(id, movie) {
+    const updatedMovie = await this.MovieModel.findOneAndUpdate(
+      {
+        id,
+      },
+      {
+        ...movie,
+        id,
+      },
+      {
+        new: true,
+      },
+    );
+
+    return updatedMovie;
   }
 }

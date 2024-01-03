@@ -3,7 +3,7 @@ import { randomUUID } from 'crypto';
 import { AppError } from '../../../../utils/AppError.js';
 import { Movie } from '../../entities/Movie.js';
 
-export class MovieMongooseRepository {
+export class MovieMemoryRepository {
   constructor() {
     this.data = [];
   }
@@ -27,10 +27,6 @@ export class MovieMongooseRepository {
     return newMovie.data;
   }
 
-  async find() {
-    return this.data;
-  }
-
   async findAvailable() {
     const result = this.data.filter((movie) => movie.isAvailable);
 
@@ -40,14 +36,35 @@ export class MovieMongooseRepository {
   async findById(id) {
     const movie = this.data.find((movie) => movie.id === id);
 
-    if (!movie) {
+    return movie;
+  }
+
+  async update(id, movie) {
+    const movieIndex = this.data.findIndex((movie) => movie.id === id);
+
+    if (movieIndex === -1) {
       throw new AppError({
-        message: 'Movie not found',
+        message: 'movie not found',
         messageCode: 'database.movie.notFound',
         statusCode: 404,
       });
     }
 
-    return movie;
+    const newMovie = await Movie.safeParseAsync({
+      ...movie,
+      id,
+    });
+
+    if (!newMovie.success) {
+      throw new AppError({
+        message: 'Invalid movie data',
+        messageCode: 'database.movie.invalidData',
+        statusCode: 400,
+      });
+    }
+
+    this.data[movieIndex] = newMovie.data;
+
+    return newMovie.data;
   }
 }

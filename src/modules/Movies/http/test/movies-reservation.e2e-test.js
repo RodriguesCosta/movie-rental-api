@@ -36,6 +36,7 @@ describe('[e2e] /api/book', () => {
     expect(reservationResponse.statusCode).toBe(201);
     expect(reservationResponse.body).toHaveProperty('reserveId');
     expect(reservationResponse.body).toHaveProperty('status');
+    expect(reservationResponse.body.status).toBe('WAITING');
 
     const checkMovieListResponse = await supertest(app).get('/api/all');
     expect(checkMovieListResponse.body.length).toBe(9);

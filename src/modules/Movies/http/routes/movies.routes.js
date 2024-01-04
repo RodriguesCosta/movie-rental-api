@@ -4,6 +4,7 @@ import { ConfirmLeaseService } from '../../services/ConfirmLease.service.js';
 import { CreateLeaseService } from '../../services/CreateLease.service.js';
 import { CreateMovieService } from '../../services/CreateMovie.service.js';
 import { GelAllMoviesService } from '../../services/GelAllMovies.service.js';
+import { ReturnMovieService } from '../../services/ReturnMovie.service.js';
 
 export const moviesRouter = Router();
 
@@ -11,6 +12,7 @@ const createMovieService = new CreateMovieService();
 const gelAllMoviesService = new GelAllMoviesService();
 const createLeaseService = new CreateLeaseService();
 const confirmLeaseService = new ConfirmLeaseService();
+const returnMovieService = new ReturnMovieService();
 
 moviesRouter.post('/movie', async (request, response) => {
   const { movie } = await createMovieService.execute(request.body);
@@ -48,6 +50,17 @@ moviesRouter.post('/confirm', async (request, response) => {
   const { lease } = await confirmLeaseService.execute({
     reserveId: request.body.reserveId,
     customer: request.body.customer,
+  });
+
+  response.json({
+    scheduleId: lease.id,
+    status: lease.status,
+  });
+});
+
+moviesRouter.post('/return', async (request, response) => {
+  const { lease } = await returnMovieService.execute({
+    scheduleId: request.body.scheduleId,
   });
 
   response.json({

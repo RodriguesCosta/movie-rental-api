@@ -2,8 +2,14 @@ version: "3"
 
 services:
   mongodb:
+    extends:
+      file: docker-compose.yml
+      service: mongodb
     attach: false
 
   app:
+    extends:
+      file: docker-compose.yml
+      service: app
     restart: no
     command: npm run test:e2e

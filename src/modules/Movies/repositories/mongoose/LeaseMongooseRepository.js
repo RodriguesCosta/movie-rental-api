@@ -23,7 +23,9 @@ export class LeaseMongooseRepository {
   async findById(id) {
     const lease = await this.LeaseModel.findOne({
       id,
-    });
+    })
+      .lean()
+      .exec();
 
     return lease;
   }
@@ -34,13 +36,17 @@ export class LeaseMongooseRepository {
         id,
       },
       {
-        ...lease,
-        id,
+        $set: {
+          ...lease,
+          id,
+        },
       },
       {
         new: true,
       },
-    );
+    )
+      .lean()
+      .exec();
 
     return updatedLease;
   }

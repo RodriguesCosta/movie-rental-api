@@ -22,7 +22,9 @@ export class MovieMongooseRepository {
   async findAvailable() {
     const result = await this.MovieModel.find({
       isAvailable: true,
-    });
+    })
+      .lean()
+      .exec();
 
     return result;
   }
@@ -30,7 +32,9 @@ export class MovieMongooseRepository {
   async findById(id) {
     const movie = await this.MovieModel.findOne({
       id,
-    });
+    })
+      .lean()
+      .exec();
 
     return movie;
   }
@@ -41,13 +45,17 @@ export class MovieMongooseRepository {
         id,
       },
       {
-        ...movie,
-        id,
+        $set: {
+          ...movie,
+          id,
+        },
       },
       {
         new: true,
       },
-    );
+    )
+      .lean()
+      .exec();
 
     return updatedMovie;
   }

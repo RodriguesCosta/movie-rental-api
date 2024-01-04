@@ -1,8 +1,19 @@
 import { zodSchema } from '@bebrasmell/zod-mongoose';
+import { z } from 'zod';
 
 import { Lease } from '../../../entities/Lease.js';
 
-export const LeaseSchema = zodSchema(Lease);
+const mongoLease = Lease.extend({
+  customer: z
+    .object({
+      name: z.string().optional(),
+      email: z.string().optional(),
+      phone: z.string().optional(),
+    })
+    .optional(),
+});
+
+export const LeaseSchema = zodSchema(mongoLease);
 
 LeaseSchema.index(
   {

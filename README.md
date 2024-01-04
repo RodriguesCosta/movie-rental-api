@@ -11,7 +11,7 @@ docker compose up
 Para rodar os testes e2e temos duas maneiras, a primeira é usando o docker compose com o comando:
 
 ```bash
-docker compose -f docker-compose.e2e-test.yml up --abort-on-container-exit --build
+docker compose -f docker-compose.e2e-test.yml up --build
 ```
 ou pode ser rodado localmente primeiro subindo o banco de dados com o comando:
 

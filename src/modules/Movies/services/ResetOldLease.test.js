@@ -1,5 +1,3 @@
-import { randomUUID } from 'crypto';
-
 import { LeaseMemoryRepository } from '../repositories/memory/LeaseMemoryRepository.js';
 import { MovieMemoryRepository } from '../repositories/memory/MovieMemoryRepository.js';
 import { ResetOldLeaseService } from './ResetOldLease.service.js';

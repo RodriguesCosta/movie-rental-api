@@ -1,5 +1,5 @@
 {
-  "name": "objective-nodejs",
+  "name": "movie-rental-api",
   "version": "1.0.0",
   "description": "API for movie rentals",
   "type": "module",

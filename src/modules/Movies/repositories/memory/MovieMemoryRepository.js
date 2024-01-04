@@ -51,6 +51,7 @@ export class MovieMemoryRepository {
     }
 
     const newMovie = await Movie.safeParseAsync({
+      ...this.data[movieIndex],
       ...movie,
       id,
     });

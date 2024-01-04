@@ -110,7 +110,6 @@ describe('ConfirmLeaseService', () => {
     const leaseCreated = await createLease();
 
     await leaseRepository.update(leaseCreated.id, {
-      ...leaseCreated,
       createdAt: new Date(new Date().getTime() - 3 * 60 * 60 * 1000 - 1),
     });
 

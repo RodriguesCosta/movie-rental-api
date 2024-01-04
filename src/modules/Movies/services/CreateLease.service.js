@@ -41,7 +41,6 @@ export class CreateLeaseService {
     });
 
     await this.movieRepository.update(movieId, {
-      ...movie,
       isAvailable: false,
     });
 

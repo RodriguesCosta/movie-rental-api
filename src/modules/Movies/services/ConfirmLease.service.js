@@ -52,7 +52,6 @@ export class ConfirmLeaseService {
     }
 
     const leaseUpdated = await this.leaseRepository.update(reserveId, {
-      ...lease,
       status: 'LEASED',
       customer: customerValidation.data,
     });

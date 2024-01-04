@@ -46,6 +46,7 @@ export class LeaseMemoryRepository {
     }
 
     const newLease = await Lease.safeParseAsync({
+      ...this.data[leaseIndex],
       ...lease,
       id,
     });

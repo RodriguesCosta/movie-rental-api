@@ -9,7 +9,7 @@ export const LeaseCustomer = z.object({
 export const Lease = z.object({
   id: z.string().uuid(),
   movieId: z.string().uuid(),
-  status: z.enum(['WAITING', 'LEASED', 'RETURNED']),
+  status: z.enum(['WAITING', 'LEASED', 'RETURNED', 'CANCELLED']),
   customer: LeaseCustomer.optional(),
   createdAt: z.date(),
 });

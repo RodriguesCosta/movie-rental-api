@@ -30,6 +30,20 @@ export class LeaseMongooseRepository {
     return lease;
   }
 
+  async findOlderLeases(hours = 3) {
+    const date = new Date().getTime() - hours * 60 * 60 * 1000;
+
+    const leases = await this.LeaseModel.find({
+      createdAt: {
+        $lt: new Date(date),
+      },
+    })
+      .lean()
+      .exec();
+
+    return leases;
+  }
+
   async update(id, lease) {
     const updatedLease = await this.LeaseModel.findOneAndUpdate(
       {

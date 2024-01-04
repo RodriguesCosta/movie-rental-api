@@ -34,6 +34,16 @@ export class LeaseMemoryRepository {
     return lease;
   }
 
+  async findOlderLeases(hours = 3) {
+    const date = new Date().getTime() - hours * 60 * 60 * 1000;
+
+    const leases = this.data.filter(
+      (lease) => lease.createdAt < new Date(date),
+    );
+
+    return leases;
+  }
+
   async update(id, lease) {
     const leaseIndex = this.data.findIndex((lease) => lease.id === id);
 
